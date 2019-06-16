@@ -1,0 +1,9 @@
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\bin\Debug\netcoreapp2.2\ProjekatASP.Application.deps.json
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\bin\Debug\netcoreapp2.2\ProjekatASP.Application.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\bin\Debug\netcoreapp2.2\ProjekatASP.Application.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.csprojAssemblyReference.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.csproj.CoreCompileInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.AssemblyInfoInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.AssemblyInfo.cs
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.Application\obj\Debug\netcoreapp2.2\ProjekatASP.Application.pdb

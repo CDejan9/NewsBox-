@@ -1,0 +1,16 @@
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatASP.EfCommands.deps.json
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatASP.EfCommands.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatASP.EfCommands.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\EfDataAccess.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatASP.Application.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatAsp.Domain.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\EfDataAccess.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatASP.Application.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\bin\Debug\netcoreapp2.2\ProjekatAsp.Domain.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.csprojAssemblyReference.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.csproj.CoreCompileInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.AssemblyInfoInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.AssemblyInfo.cs
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.csproj.CopyComplete
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatASP.EfCommands\obj\Debug\netcoreapp2.2\ProjekatASP.EfCommands.pdb

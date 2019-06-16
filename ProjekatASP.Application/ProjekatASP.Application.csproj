@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\SlikaDTO\**" />
+    <EmbeddedResource Remove="DTO\SlikaDTO\**" />
+    <None Remove="DTO\SlikaDTO\**" />
+  </ItemGroup>
+
+</Project>

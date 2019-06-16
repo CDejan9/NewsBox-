@@ -1,0 +1,14 @@
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\EfDataAccess.deps.json
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\EfDataAccess.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.csprojAssemblyReference.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.AssemblyInfoInputs.cache
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.AssemblyInfo.cs
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\EfDataAccess.runtimeconfig.json
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\EfDataAccess.runtimeconfig.dev.json
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\EfDataAccess.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\ProjekatAsp.Domain.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\bin\Debug\netcoreapp2.2\ProjekatAsp.Domain.pdb
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.csproj.CopyComplete
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.dll
+C:\Users\danica\source\repos\ProjekatAsp.Api\EfDataAccess\obj\Debug\netcoreapp2.2\EfDataAccess.pdb
