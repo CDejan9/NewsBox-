@@ -105,6 +105,10 @@ namespace ProjekatAsp.Api.Controllers
                 _deleteKategorija.Execute(id);
                 return StatusCode(204);
             }
+            catch(DataAlreadyExistsException)
+            {
+                return Conflict("Postoje vesti za izabranu kategoriju");
+            }
             catch (DataNotFoundException e)
             {
                 return NotFound(e.Message);

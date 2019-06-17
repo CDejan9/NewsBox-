@@ -45,17 +45,6 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
                     }).ToList()
                 }).ToList()
             };
-            /*var data = Context.Kategorijas.Find(request);
-            if(data.Obrisano == true || data == null)
-            {
-                throw new DataNotFoundException();
-            }
-
-            return new KategorijaGetDto
-            {
-                Id = data.Id,
-                Naziv = data.Naziv
-            };*/
         }
     }
 }

@@ -22,13 +22,13 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
             {
                 throw new DataNotFoundException();
             }
-            if(request.Naziv == kat.Naziv) //naziv te kategorije isti, odnosno da li menjamo u isti naziv
+            if(request.Naziv == kat.Naziv)
             {
                 throw new DataAlreadyExistsException();
             }
             if(Context.Kategorijas.Any(k => k.Naziv == request.Naziv))
             {
-                throw new DataAlreadyExistsException(); //Sa tim imenom
+                throw new DataAlreadyExistsException();
             }
 
             kat.Naziv = request.Naziv;

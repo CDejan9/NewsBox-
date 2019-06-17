@@ -112,6 +112,10 @@ namespace ProjekatAsp.Api.Controllers
             {
                 return NotFound(e.Message);
             }
+            catch(DataAlreadyExistsException)
+            {
+                return Conflict("Postoje korisnici sa tom ulogom");
+            }
             catch(Exception)
             {
                 return StatusCode(500);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.KategorijaCommands;
 using ProjekatASP.Application.ExceptionsProjekat;
 
@@ -15,15 +17,18 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
 
         public void Execute(int id)
         {
-            var kat = Context.Kategorijas.Find(id);
-            if(kat == null || kat.Obrisano == true)
+            var kategorija = Context.Kategorijas.Include(v => v.Vests).Where(v => v.Id == id).First();
+            if (kategorija == null || kategorija.Obrisano == true)
             {
                 throw new DataNotFoundException("Kategorija koju zelite da obrisete");
             }
 
-            kat.Obrisano = true;
+            if (kategorija.Vests.Count() > 0)
+            {
+                throw new DataAlreadyExistsException();
+            }
+            kategorija.Obrisano = true;
             Context.SaveChanges();
-           
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
                 
             Context.Kategorijas.Add(new Kategorija
             {
-                Naziv = request.Naziv, //U naziv iz domena upisuje Naziv koji je dobio od requesta
+                Naziv = request.Naziv,
                 Kreirano = DateTime.Now
             });
 
