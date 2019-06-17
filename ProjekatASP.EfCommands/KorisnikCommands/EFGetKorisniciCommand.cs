@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.KorisnikCommands;
 using ProjekatASP.Application.DTO.KorisnikDTO;
 using ProjekatASP.Application.ExceptionsProjekat;
+using ProjekatASP.Application.Responsed;
 using ProjekatASP.Application.SearchesProjekat;
 
 namespace ProjekatASP.EfCommands.KorisnikCommands
@@ -16,29 +18,43 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
         {
         }
 
-        public IEnumerable<KorisnikGetDto> Execute(KorisnikSearch request)
+        public PagedRespone<KorisnikGetDto> Execute(KorisnikSearch request)
         {
             var korisnik = Context.Korisniks.AsQueryable();
-            /*if(request.Aktivan == false)
-            {
-                korisnik = korisnik.Where(kor => kor.Obrisano == request.Aktivan);
-                throw new DataNotFoundException("ne postoji");
-            }*/
-            if(request.Email != null)
+
+            if (request.Email != null)
             {
                 var dajMail = request.Email;
                 korisnik = korisnik.Where(kor => kor.Email.ToLower().Contains(dajMail.ToLower()) && kor.Obrisano == false);
             }
+            var totalCount = korisnik.Count();
 
-            return korisnik.Select(kor => new KorisnikGetDto
+            korisnik = korisnik.Skip((request.BrojStrane - 1) * request.PoStrani)
+                .Take(request.PoStrani);
+
+            var pageCount = (int)Math.Ceiling((double)totalCount / request.PoStrani);
+
+
+            var response = new PagedRespone<KorisnikGetDto>
             {
-                Id = kor.Id,
-                Ime = kor.Ime,
-                Prezime = kor.Prezime,
-                Email = kor.Email,
-                UlogaId = kor.UlogaId,
-                NazivUloge = kor.Uloga.Naziv
-            });
+                TrenutnaStrana = request.BrojStrane,
+                UkupnoPronadjeno = totalCount,
+                BrojStrana = pageCount,
+                Data = korisnik.Include(u => u.Uloga)
+                .Select(kor => new KorisnikGetDto
+                {
+                    Id = kor.Id,
+                    Ime = kor.Ime,
+                    Prezime = kor.Prezime,
+                    Email = kor.Email,
+                    UlogaId = kor.UlogaId,
+                    NazivUloge = kor.Uloga.Naziv,
+                    Obrisan = kor.Obrisano
+                })
+            };
+            return response;           
         }
+
+        
     }
 }

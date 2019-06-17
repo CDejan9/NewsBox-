@@ -56,13 +56,17 @@ namespace ProjekatAsp.Api
             /*Korisnik*/
             services.AddTransient<IAddKorisnikCommand, EFAddKorisnikCommand>();
             services.AddTransient<IGetKorisniciCommand, EFGetKorisniciCommand>();
-           
+            services.AddTransient<IGetKorisnikCommand, EFGetKorisnikCommand>();
+            services.AddTransient<IEditKorisnikCommand, EFEditKorisnikCommand>();
+            services.AddTransient<IDeleteKorisnikCommand, EFDeleteKorisnikCommand>();
 
 
             /*Vest*/
             services.AddTransient<IAddVestCommand, EFAddVestCommand>();
             services.AddTransient<IGetVestiCommand, EFGetVestiCommand>();
             services.AddTransient<IGetVestCommand, EFGetVestCommand>();
+            services.AddTransient<IEditVestCommand, EFEditVestCommand>();
+            services.AddTransient<IDeleteVestCommand, EFDeleteVestCommand>();
 
             /*Komentar*/
             services.AddTransient<IAddKomentarCommand, EFAddKomentarCommand>();

@@ -6,7 +6,7 @@ using ProjekatASP.Application.CommandsProjekat.KomentarCommand;
 using ProjekatASP.Application.DTO.KomentarDTO;
 using ProjekatASP.Application.ExceptionsProjekat;
 
-namespace ProjekatASP.EfCommands.KorisnikCommands
+namespace ProjekatASP.EfCommands.KomentarCommands
 {
     public class EFEditKomentarCommand : EFBaseCommand, IEditKomentarCommand
     {
@@ -20,7 +20,8 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
             if (kom == null || kom.Obrisano == true)
             {
                 throw new DataNotFoundException();
-            }    
+            }
+            
             if (kom.Komentar_Tekst != request.TekstKomentara)
             {
                 kom.Komentar_Tekst = request.TekstKomentara;
@@ -31,7 +32,7 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
             {
                 throw new DataNotAlteredException();
             }
-                
+               
         }
     }
 }

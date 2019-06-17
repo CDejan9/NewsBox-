@@ -20,18 +20,20 @@ namespace ProjekatAsp.Api.Controllers
     [ApiController]
     public class VestController : Controller
     {
-        public readonly IAddVestCommand _addVest;
-        public readonly IGetVestiCommand _getVesti;
-        public readonly IGetVestCommand _getVest;
+        private readonly IAddVestCommand _addVest;
+        private readonly IGetVestiCommand _getVesti;
+        private readonly IGetVestCommand _getVest;
+        private readonly IEditVestCommand _editVest;
+        private readonly IDeleteVestCommand _deleteVest;
 
-        public VestController(IAddVestCommand addVest, IGetVestiCommand getVesti, IGetVestCommand getVest)
+        public VestController(IAddVestCommand addVest, IGetVestiCommand getVesti, IGetVestCommand getVest, IEditVestCommand editVest, IDeleteVestCommand deleteVest)
         {
             _addVest = addVest;
             _getVesti = getVesti;
             _getVest = getVest;
+            _editVest = editVest;
+            _deleteVest = deleteVest;
         }
-
-
 
         // GET: api/vest
         [HttpGet]
@@ -105,15 +107,44 @@ namespace ProjekatAsp.Api.Controllers
 
         // PUT api/vest/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]VestGetDto dto)
         {
-        
+            try
+            {
+                _editVest.Execute(dto);
+                return NoContent();
+            }
+            catch (DataNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DataAlreadyExistsException)
+            {
+                return Conflict();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         // DELETE api/vest/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _deleteVest.Execute(id);
+                return StatusCode(204);
+            }
+            catch (DataNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

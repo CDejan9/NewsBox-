@@ -21,29 +21,28 @@ namespace ProjekatASP.EfCommands.VestCommand
         public VestKomentarGetDto Execute(int request)
         {
             var data = Context.Vests.Include(v => v.Slikas)
+                .Include(kat => kat.Kategorija)
                 .Include(k => k.Komentars)
                 .SingleOrDefault(v => v.Id == request);
 
-
-
             if (data.Obrisano == true || data == null)
             {
-                throw new DataNotFoundException("vest");
+                throw new DataNotFoundException("Vest");
             }
-        //dohvatiti samo aktivne komentare
-
 
             return new VestKomentarGetDto
             {
                 Id = data.Id,
                 Naslov = data.Naslov,
                 Tekst = data.Tekst,
-                TekstKomentara = data.Komentars.Select(k => new KomentarGetDto
+                KategorijaId = data.Kategorija.Id,
+                NazivKategorije = data.Kategorija.Naziv,
+                TekstKomentara = data.Komentars.Where(kom => kom.Obrisano == false).Select(k => new KomentarGetDto
                 {
+                    Id = k.Id,
                     TekstKomentara = k.Komentar_Tekst,
                 }).ToList(),
-               /* KategorijaId = data.Kategorija.Id,
-                NazivKategorije = data.Kategorija.Naziv,*/
+                
                 putanjaSlike = data.Slikas.Select(s => new SlikaGetDto
                   {
                       Putanja = s.Putanja

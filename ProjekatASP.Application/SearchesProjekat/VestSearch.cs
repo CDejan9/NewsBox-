@@ -10,5 +10,8 @@ namespace ProjekatASP.Application.SearchesProjekat
         public int KategorijaId { get; set; }
         public string Naslov { get; set; }
         public bool Aktivan { get; set; }
+
+        public int PoStrani { get; set; } = 4;
+        public int BrojStrane { get; set; } = 1;
     }
 }

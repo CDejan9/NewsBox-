@@ -15,9 +15,9 @@ namespace ProjekatAsp.Api.Controllers
     [ApiController]
     public class KomentarController : Controller
     {
-        public readonly IAddKomentarCommand _addKomentar;
-        public readonly IDeleteKomentarCommand _deleteKomentar;
-        public readonly IEditKomentarCommand _editKomentar;
+        private readonly IAddKomentarCommand _addKomentar;
+        private readonly IDeleteKomentarCommand _deleteKomentar;
+        private readonly IEditKomentarCommand _editKomentar;
 
         public KomentarController(IAddKomentarCommand addKomentar, IDeleteKomentarCommand deleteKomentar, IEditKomentarCommand editKomentar)
         {
@@ -25,9 +25,6 @@ namespace ProjekatAsp.Api.Controllers
             _deleteKomentar = deleteKomentar;
             _editKomentar = editKomentar;
         }
-
-
-
 
         // GET: api/<controller>
         [HttpGet]
@@ -73,7 +70,7 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound();
+                return NotFound("Komentar");
             }
             catch (DataAlreadyExistsException)
             {
@@ -100,7 +97,7 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound("komentar sa tim Id-ijem");
+                return NotFound("Komentar sa tim Id-ijem");
             }
             catch (Exception)
             {

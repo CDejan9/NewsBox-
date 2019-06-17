@@ -16,13 +16,19 @@ namespace ProjekatAsp.Api.Controllers
     [ApiController]
     public class KorisnikController : Controller
     {
-        public readonly IAddKorisnikCommand _addKorisnik;
-        public readonly IGetKorisniciCommand _getKorisnici;
+        private readonly IAddKorisnikCommand _addKorisnik;
+        private readonly IGetKorisniciCommand _getKorisnici;
+        private readonly IGetKorisnikCommand _getKorisnik;
+        private readonly IEditKorisnikCommand _editKorisnik;
+        private readonly IDeleteKorisnikCommand _deleteKorisnik;
 
-        public KorisnikController(IAddKorisnikCommand addKorisnik, IGetKorisniciCommand getKorisnici)
+        public KorisnikController(IAddKorisnikCommand addKorisnik, IGetKorisniciCommand getKorisnici, IGetKorisnikCommand getKorisnik, IEditKorisnikCommand editKorisnik, IDeleteKorisnikCommand deleteKorisnik)
         {
             _addKorisnik = addKorisnik;
             _getKorisnici = getKorisnici;
+            _getKorisnik = getKorisnik;
+            _editKorisnik = editKorisnik;
+            _deleteKorisnik = deleteKorisnik;
         }
 
 
@@ -35,10 +41,17 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET api/korisnik/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetKorisnik")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                return Ok(_getKorisnik.Execute(id));
+            }
+            catch (DataNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/korisnik
@@ -66,14 +79,48 @@ namespace ProjekatAsp.Api.Controllers
 
         // PUT api/korisnik/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]KorisnikGetDto dto)
         {
+            try
+            {
+                _editKorisnik.Execute(dto);
+                return NoContent();
+            }
+            catch (DataNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DataAlreadyExistsException)
+            {
+                return Conflict("Korisnik sa tim Email-om vec postoji");
+            }
+            catch (DataNotAlteredException)
+            {
+                return Conflict();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Greska na serveru, pokusajte ponovo");
+            }
         }
 
         // DELETE api/korisnik/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _deleteKorisnik.Execute(id);
+                return StatusCode(204);
+            }
+            catch (DataNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

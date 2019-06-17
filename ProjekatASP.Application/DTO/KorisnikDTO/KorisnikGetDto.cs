@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjekatASP.Application.DTO.KomentarDTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace ProjekatASP.Application.DTO.KorisnikDTO
         public string Email { get; set; }
         public string Lozinka { get; set; }
         public int? UlogaId { get; set; }
-
+        public bool Obrisan { get; set; }
         public string NazivUloge { get; set; }
 
     }

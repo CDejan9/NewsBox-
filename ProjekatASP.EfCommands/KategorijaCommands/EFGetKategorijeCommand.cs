@@ -6,6 +6,7 @@ using EfDataAccess;
 using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.KategorijaCommands;
 using ProjekatASP.Application.DTO.KategorijaDTO;
+using ProjekatASP.Application.Responsed;
 using ProjekatASP.Application.SearchesProjekat;
 
 namespace ProjekatASP.EfCommands.KategorijaCommands
@@ -16,26 +17,42 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
         {
         }
 
-        public IEnumerable<KategorijaGetDto> Execute(KategorijaSearch request)
+        public PagedRespone<KategorijaGetDtoBezVesti> Execute(KategorijaSearch request)
         {
             var query = Context.Kategorijas.AsQueryable();
 
             if (request.Naziv != null)
             {
-                var dajNaziv = request.Naziv;
-                query = query.Where(k => k.Naziv.Contains(dajNaziv) && k.Obrisano == false);
+                var dajNaziv = request.Naziv.ToLower();
+                query = query.Where(k => k.Naziv.ToLower().Contains(dajNaziv) && k.Obrisano == false);
             }
-
-             if (request.Aktivan == false)
+            if (request.Aktivan == false)
             {
                 query = query.Where(k => k.Obrisano == request.Aktivan);
             }
 
-            return query.Select(k => new KategorijaGetDto
+            var totalCount = query.Count();
+
+            query = query.Skip((request.BrojStrane - 1) * request.PoStrani)
+                .Take(request.PoStrani);
+
+            var pageCount = (int)Math.Ceiling((double)totalCount / request.PoStrani);
+
+
+            var response = new PagedRespone<KategorijaGetDtoBezVesti>
             {
-                Id = k.Id,
-                Naziv = k.Naziv
-            });
+                TrenutnaStrana = request.BrojStrane,
+                UkupnoPronadjeno = totalCount,
+                BrojStrana = pageCount,
+                Data = query.Select(kat => new KategorijaGetDtoBezVesti
+                {
+                    Id = kat.Id,
+                    Naziv = kat.Naziv
+                })
+            };
+            return response;
         }
+
+        
     }
 }

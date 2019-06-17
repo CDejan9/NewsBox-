@@ -48,7 +48,7 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch(DataNotFoundException)
             {
-                return NotFound();
+                return NotFound("Kategorija sa tim ID-ijem ");
             }
         }
 
@@ -59,7 +59,7 @@ namespace ProjekatAsp.Api.Controllers
             try
             {
                 _addKategorija.Execute(value);
-                return StatusCode(201);
+                return StatusCode(201, "Uspesno ste kreirali kategoriju");
             }
             catch (DataAlreadyExistsException)
             {

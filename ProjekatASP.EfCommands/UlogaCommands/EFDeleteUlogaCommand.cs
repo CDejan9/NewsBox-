@@ -18,7 +18,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
             var uloga = Context.Ulogas.Find(id);
             if(uloga == null || uloga.Obrisano == true)
             {
-                throw new DataNotFoundException("uloga koju zelite da obrisete");
+                throw new DataNotFoundException("Uloga koju zelite da obrisete");
             }
 
             uloga.Obrisano = true;

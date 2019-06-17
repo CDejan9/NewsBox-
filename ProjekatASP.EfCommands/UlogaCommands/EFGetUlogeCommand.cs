@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.UlogaCommands;
 using ProjekatASP.Application.DTO.UlogaDTO;
+using ProjekatASP.Application.Responsed;
 using ProjekatASP.Application.SearchesProjekat;
 
 namespace ProjekatASP.EfCommands.UlogaCommands
@@ -15,7 +17,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
         {
         }
 
-        public IEnumerable<UlogaGetDto> Execute(UlogaSearch request)
+        public PagedRespone<UlogaGetDto> Execute(UlogaSearch request)
         {
             var uloga = Context.Ulogas.AsQueryable();
             if (request.Naziv != null)
@@ -26,7 +28,46 @@ namespace ProjekatASP.EfCommands.UlogaCommands
             /*if (request.Id != 0)
             {
                 uloga = Context.Ulogas.Where(u => u.Id == request.Id);
-            }*/
+            }
+            */
+            if (request.Aktivan == false)
+            {
+                uloga = uloga.Where(k => k.Obrisano == request.Aktivan);
+            }
+
+            var totalCount = uloga.Count();
+
+            uloga = uloga.Skip((request.BrojStrane - 1) * request.PoStrani)
+                .Take(request.PoStrani);
+
+            var pageCount = (int)Math.Ceiling((double)totalCount / request.PoStrani);
+
+            var response = new PagedRespone<UlogaGetDto>
+            {
+                TrenutnaStrana = request.BrojStrane,
+                UkupnoPronadjeno = totalCount,
+                BrojStrana = pageCount,
+                Data = uloga.Select(ul => new UlogaGetDto
+                {
+                    Id = ul.Id,
+                    Naziv = ul.Naziv,    
+                })
+            };
+            return response;
+        }
+
+        /*public IEnumerable<UlogaGetDto> Execute(UlogaSearch request)
+        {
+            var uloga = Context.Ulogas.AsQueryable();
+            if (request.Naziv != null)
+            {
+                var dajNaziv = request.Naziv;
+                uloga = uloga.Where(u => u.Naziv.Contains(dajNaziv) && u.Obrisano == false);
+            }
+            *//*if (request.Id != 0)
+            {
+                uloga = Context.Ulogas.Where(u => u.Id == request.Id);
+            }*//*
             if (request.Aktivan == false)
             {
                 uloga = uloga.Where(k => k.Obrisano == request.Aktivan);
@@ -37,6 +78,6 @@ namespace ProjekatASP.EfCommands.UlogaCommands
                 Id = u.Id,
                 Naziv = u.Naziv
             });
-        }
+        }*/
     }
 }
