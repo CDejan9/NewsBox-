@@ -18,7 +18,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
         public void Execute(UlogaGetDto request)
         {
             var uloga = Context.Ulogas.Find(request.Id);
-            if(uloga.Obrisano == true || uloga == null)
+            if (uloga == null || uloga.Obrisano == true)
             {
                 throw new DataNotFoundException();
             }
@@ -28,7 +28,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
             }
             if(Context.Ulogas.Any(u => u.Naziv == request.Naziv))
             {
-                throw new DataAlreadyExistsException("Vec postoji Uloga sa tim nazivom");
+                throw new DataAlreadyExistsException();
             }
 
             uloga.Naziv = request.Naziv;

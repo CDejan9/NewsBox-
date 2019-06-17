@@ -27,6 +27,19 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
                 var dajMail = request.Email;
                 korisnik = korisnik.Where(kor => kor.Email.ToLower().Contains(dajMail.ToLower()) && kor.Obrisano == false);
             }
+
+            if (request.Email != null)
+            {
+                var dajMail = request.Email;
+                korisnik = korisnik.Where(kor => kor.Email.ToLower().Contains(dajMail.ToLower()) && kor.Obrisano == true);
+                throw new DataNotFoundException();
+            }
+
+            if (request.Aktivan == false)
+            {
+                korisnik = korisnik.Where(k => k.Obrisano == request.Aktivan);
+            }
+
             var totalCount = korisnik.Count();
 
             korisnik = korisnik.Skip((request.BrojStrane - 1) * request.PoStrani)

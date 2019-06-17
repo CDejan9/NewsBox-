@@ -33,14 +33,22 @@ namespace ProjekatAsp.Api.Controllers
 
         // GET: api/kategorija
         [HttpGet]
-        public IActionResult Get([FromQuery] KategorijaSearch search)
+        public ActionResult<IEnumerable<KategorijaGetDto>> Get([FromQuery] KategorijaSearch search)
         {
-            return Ok(_getKategorije.Execute(search));
+            try
+            {
+                return Ok(_getKategorije.Execute(search));
+            }
+            
+              catch (DataNotFoundException)
+            {
+                return NotFound("Kategorija sa tim Nazivom ne postoji");
+            }
         }
 
         // GET api/kategorija/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<KategorijaGetDto>> Get(int id)
         {
             try
             {
@@ -48,13 +56,13 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch(DataNotFoundException)
             {
-                return NotFound("Kategorija sa tim ID-ijem ");
+                return NotFound("Kategorija sa tim ID-ijem ne postoji");
             }
         }
 
         // POST api/kategorija
         [HttpPost]
-        public IActionResult Post([FromBody] KategorijaInsertDto value)
+        public ActionResult Post([FromBody] KategorijaInsertDto value)
         {
             try
             {
@@ -63,7 +71,7 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataAlreadyExistsException)
             {
-                return Conflict();
+                return Conflict("Postoji kategorija sa tim nazivom");
             }
             catch (Exception)
             {
@@ -75,20 +83,20 @@ namespace ProjekatAsp.Api.Controllers
         // PUT api/kategorija/5
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult Put(int id, [FromBody]KategorijaGetDto dto)
+        public ActionResult Put(int id, [FromBody]KategorijaGetDto dto)
         {
             try
             {
                 _editKategorija.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjena kategorija");
+                return StatusCode(204);
             }
-            catch (DataAlreadyExistsException e)
+            catch (DataAlreadyExistsException)
             {
-                return Conflict(e.Message);
+                return Conflict("Postoji kategorija sa tim nazivom");
             }
-            catch (DataNotAlteredException e)
+            catch (DataNotAlteredException)
             {
-                return NotFound(e.Message);
+                return NotFound("Ne postoji kategorija koju zelite da izmenite");
             }
             catch (Exception)
             {
@@ -98,7 +106,7 @@ namespace ProjekatAsp.Api.Controllers
 
         // DELETE api/kategorija/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -109,9 +117,9 @@ namespace ProjekatAsp.Api.Controllers
             {
                 return Conflict("Postoje vesti za izabranu kategoriju");
             }
-            catch (DataNotFoundException e)
+            catch (DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Ne postoji kategorija koju zelite da obrisete");
             }
             catch (Exception)
             {

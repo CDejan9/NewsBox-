@@ -8,5 +8,6 @@ namespace ProjekatASP.Application.DTO.KomentarDTO
     {
         public int Id { get; set; }
         public string TekstKomentara { get; set; }
+
     }
 }

@@ -8,6 +8,11 @@ namespace ProjekatAsp.Domain
     {
         public string Naziv { get; set; }
         public ICollection<Vest> Vests { get; set; }
+
+        public Kategorija Where()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

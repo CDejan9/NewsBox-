@@ -25,9 +25,9 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
                 .SingleOrDefault(k => k.Id == request);
 
 
-            if (data.Obrisano == true || data == null)
+            if (data == null || data.Obrisano == true)
             {
-                throw new DataNotFoundException("Korisnik ne postoji");
+                throw new DataNotFoundException();
             }
 
             return new KorisnikGetKomentarDto

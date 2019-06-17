@@ -20,7 +20,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
             var uloga = Context.Ulogas.Include(k => k.Korisniks).Where(u => u.Id == id).First();
             if (uloga == null || uloga.Obrisano == true)
             {
-                throw new DataNotFoundException("Uloga koju zelite da obrisete");
+                throw new DataNotFoundException();
             }
 
             if(uloga.Korisniks.Count() > 0)

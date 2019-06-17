@@ -17,7 +17,7 @@ namespace ProjekatASP.EfCommands.UlogaCommands
         public UlogaGetDto Execute(int request)
         {
             var uloga = Context.Ulogas.Find(request);
-            if(uloga.Obrisano == true || uloga == null)
+            if(uloga == null || uloga.Obrisano == true)
             {
                 throw new DataNotFoundException();
             }

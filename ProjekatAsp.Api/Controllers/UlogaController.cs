@@ -37,14 +37,22 @@ namespace ProjekatAsp.Api.Controllers
 
         // GET: api/uloga
         [HttpGet]
-        public IActionResult Get([FromQuery] UlogaSearch search)
+        public ActionResult<IEnumerable<UlogaGetDto>> Get([FromQuery] UlogaSearch search)
         {
-            return Ok(_getUloge.Execute(search));
+            try
+            {
+                return Ok(_getUloge.Execute(search));
+            }
+            catch(DataNotFoundException)
+            {
+                return NotFound("Uloga sa tim nazivom ne postoji");
+            }
+            
         }
 
         // GET api/uloga/5
         [HttpGet("{id}", Name = "GetUloga")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<UlogaGetDto>> Get(int id)
         {
             try
             {
@@ -52,65 +60,65 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch(DataNotFoundException)
             {
-                return NotFound();
+                return NotFound("Uloga sa tim ID-ijem ne postoji");
             }
         }
 
         // POST api/uloga
         [HttpPost]
-        public IActionResult Post([FromBody] UlogaInsertDto value)
+        public ActionResult Post([FromBody] UlogaInsertDto value)
         {
             try
             {
                 _addUloga.Execute(value);
-                return StatusCode(201, "Uspesno kreirano");
+                return StatusCode(201, "Uspesno ste kreirali ulogu");
             }
-            catch(DataAlreadyExistsException e)
+            catch(DataAlreadyExistsException)
             {
-                return Conflict(e.Message);
+                return Conflict("Vec postoji Uloga sa tim nazivom");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                // return StatusCode(500, "Doslo je do greske na serveru");
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Doslo je do greske na serveru pokusajte ponovo");
+
             }
         }
 
         // PUT api/uloga/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UlogaGetDto dto)
+        public ActionResult Put(int id, [FromBody] UlogaGetDto dto)
         {
             try
             {
                 _editUloga.Execute(dto);
-                return StatusCode(204, "Uspesno izmenjena Uloga");
+                return StatusCode(204);
             }
-            catch(DataAlreadyExistsException e)
+            catch(DataAlreadyExistsException)
             {
-                return Conflict(e.Message);
+                return Conflict("Vec postoji Uloga sa tim nazivom");
             }
-            catch(DataNotFoundException e)
+            catch(DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Uloga sa tim ID-ijem ne postoji");
             }
             catch (Exception)
             {
-                return StatusCode(500, "Serverska greska pri izmeni uloge, pokusajte ponovo!");
+                return StatusCode(500, "Doslo je do greske na serveru pokusajte ponovo");
             }
         }
 
         // DELETE api/uloga/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteUloga.Execute(id);
                 return StatusCode(204);
             }
-            catch(DataNotFoundException e)
+            catch(DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Uloga sa tim ID-ijem ne postoji");
             }
             catch(DataAlreadyExistsException)
             {

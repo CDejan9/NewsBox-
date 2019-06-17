@@ -21,6 +21,7 @@ using ProjekatASP.EfCommands.KomentarCommands;
 using ProjekatASP.EfCommands.KorisnikCommands;
 using ProjekatASP.EfCommands.UlogaCommands;
 using ProjekatASP.EfCommands.VestCommand;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ProjekatAsp.Api
 {
@@ -72,6 +73,13 @@ namespace ProjekatAsp.Api
             services.AddTransient<IAddKomentarCommand, EFAddKomentarCommand>();
             services.AddTransient<IDeleteKomentarCommand, EFDeleteKomentarCommand>();
             services.AddTransient<IEditKomentarCommand, EFEditKomentarCommand>();
+            services.AddTransient<IGetKomentariCommmand, EFGetKomentariCommand>();
+            services.AddTransient<IGetKomentarCommand, EFGetKomentarCommand>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "ProjekatAsp", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +98,15 @@ namespace ProjekatAsp.Api
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }

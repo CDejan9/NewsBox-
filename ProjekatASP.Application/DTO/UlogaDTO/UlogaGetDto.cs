@@ -8,6 +8,5 @@ namespace ProjekatASP.Application.DTO.UlogaDTO
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
-        //public ICollection<string> Korisniks { get; set; }
     }
 }

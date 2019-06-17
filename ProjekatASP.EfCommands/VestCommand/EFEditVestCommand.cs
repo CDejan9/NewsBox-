@@ -20,13 +20,13 @@ namespace ProjekatASP.EfCommands.VestCommand
             var vest = Context.Vests.Find(request.Id);
             if(vest == null || vest.Obrisano == true)
             {
-                throw new DataNotFoundException("Vest ne postoji");
+                throw new DataNotFoundException();
             }
             if(!String.IsNullOrEmpty(request.Naslov))
             {
                 if(Context.Vests.Any(v => v.Naslov == request.Naslov))
                 {
-                    throw new DataAlreadyExistsException("Postoji vest da tim imenom");
+                    throw new DataAlreadyExistsException();
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace ProjekatASP.EfCommands.VestCommand
 
             if(!Context.Kategorijas.Any(k => k.Id == request.KategorijaId))
             {
-                throw new DataNotFoundException("Kategorija");
+                throw new DataNotFoundException();
             }
             else
             {

@@ -35,14 +35,21 @@ namespace ProjekatAsp.Api.Controllers
 
         // GET: api/korisnik
         [HttpGet]
-        public IActionResult Get([FromQuery] KorisnikSearch search)
+        public ActionResult<IEnumerable<KorisnikGetDto>> Get([FromQuery] KorisnikSearch search)
         {
-            return Ok(_getKorisnici.Execute(search));
+            try
+            {
+                return Ok(_getKorisnici.Execute(search));
+            }
+            catch(DataNotFoundException)
+            {
+                return NotFound("Ne postoji korisnik sa tom E-mail adresom");
+            }
         }
 
         // GET api/korisnik/5
         [HttpGet("{id}", Name = "GetKorisnik")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<KorisnikGetKomentarDto>> Get(int id)
         {
             try
             {
@@ -50,36 +57,36 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound();
+                return NotFound("Korisnik sa tim ID-ijem ne postoji");
             }
         }
 
         // POST api/korisnik
         [HttpPost]
-        public IActionResult Post([FromBody]KorisnikInsertDto value)
+        public ActionResult Post([FromBody]KorisnikInsertDto value)
         {
             try
             {
                 _addKorisnik.Execute(value);
                 return StatusCode(201, "Korisnik uspesno kreiran");
             }
-            catch(DataNotFoundException e)
+            catch(DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Ne  postoji uloga koja je dodeljena korisniku");
             }
-            catch(DataAlreadyExistsException e)
+            catch(DataAlreadyExistsException)
             {
-                return Conflict(e.Message);
+                return Conflict("Korinsik sa tim E - mailom vec postoji");
             }
-            catch(Exception e)
+            catch(Exception)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Greska na serveru, pokusajte ponovo");
             }
         }
 
         // PUT api/korisnik/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]KorisnikGetDto dto)
+        public ActionResult Put(int id, [FromBody]KorisnikGetDto dto)
         {
             try
             {
@@ -106,20 +113,20 @@ namespace ProjekatAsp.Api.Controllers
 
         // DELETE api/korisnik/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteKorisnik.Execute(id);
                 return StatusCode(204);
             }
-            catch (DataNotFoundException e)
+            catch (DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Korisnik koga zelite da obrisete ne postoji");
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Greska na serveru, pokusajte ponovo");
             }
         }
     }

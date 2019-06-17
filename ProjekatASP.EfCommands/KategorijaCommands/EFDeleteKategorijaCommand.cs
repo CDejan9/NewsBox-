@@ -20,7 +20,7 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
             var kategorija = Context.Kategorijas.Include(v => v.Vests).Where(v => v.Id == id).First();
             if (kategorija == null || kategorija.Obrisano == true)
             {
-                throw new DataNotFoundException("Kategorija koju zelite da obrisete");
+                throw new DataNotFoundException();
             }
 
             if (kategorija.Vests.Count() > 0)

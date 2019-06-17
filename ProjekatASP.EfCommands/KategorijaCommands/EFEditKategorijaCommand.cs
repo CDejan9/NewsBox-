@@ -18,7 +18,7 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
         public void Execute(KategorijaGetDto request)
         {
             var kat = Context.Kategorijas.Find(request.Id);
-            if(kat.Obrisano == true || kat == null)
+            if (kat == null || kat.Obrisano == true)
             {
                 throw new DataNotFoundException();
             }

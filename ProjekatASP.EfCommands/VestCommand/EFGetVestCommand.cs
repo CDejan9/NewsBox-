@@ -25,9 +25,9 @@ namespace ProjekatASP.EfCommands.VestCommand
                 .Include(k => k.Komentars)
                 .SingleOrDefault(v => v.Id == request);
 
-            if (data.Obrisano == true || data == null)
+            if (data == null || data.Obrisano == true)
             {
-                throw new DataNotFoundException("Vest");
+                throw new DataNotFoundException();
             }
 
             return new VestKomentarGetDto
@@ -41,6 +41,7 @@ namespace ProjekatASP.EfCommands.VestCommand
                 {
                     Id = k.Id,
                     TekstKomentara = k.Komentar_Tekst,
+                    
                 }).ToList(),
                 
                 putanjaSlike = data.Slikas.Select(s => new SlikaGetDto

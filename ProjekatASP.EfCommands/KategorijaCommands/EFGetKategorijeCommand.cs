@@ -6,6 +6,7 @@ using EfDataAccess;
 using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.KategorijaCommands;
 using ProjekatASP.Application.DTO.KategorijaDTO;
+using ProjekatASP.Application.ExceptionsProjekat;
 using ProjekatASP.Application.Responsed;
 using ProjekatASP.Application.SearchesProjekat;
 
@@ -26,11 +27,18 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
                 var dajNaziv = request.Naziv.ToLower();
                 query = query.Where(k => k.Naziv.ToLower().Contains(dajNaziv) && k.Obrisano == false);
             }
+            if (request.Naziv != null)
+            {
+                var dajNaziv = request.Naziv.ToLower();
+                query = query.Where(k => k.Naziv.ToLower().Contains(dajNaziv) && k.Obrisano != false);
+                throw new DataNotFoundException();
+            }
             if (request.Aktivan == false)
             {
                 query = query.Where(k => k.Obrisano == request.Aktivan);
             }
 
+            
             var totalCount = query.Count();
 
             query = query.Skip((request.BrojStrane - 1) * request.PoStrani)

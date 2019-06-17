@@ -21,11 +21,11 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
             var uloga = Context.Ulogas.Find(request.UlogaId);
             if(uloga == null || uloga.Obrisano == true)
             {
-                throw new DataNotFoundException("uloga koja je dodeljena tom korisniku");
+                throw new DataNotFoundException();
             }
             if(Context.Korisniks.Any(k => k.Email == request.Email))
             {
-                throw new DataAlreadyExistsException("korinsik sa tim E-mailom");
+                throw new DataAlreadyExistsException();
             }
 
             Context.Korisniks.Add(new Korisnik

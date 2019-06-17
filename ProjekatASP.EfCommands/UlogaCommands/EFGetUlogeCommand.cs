@@ -6,6 +6,7 @@ using EfDataAccess;
 using Microsoft.EntityFrameworkCore;
 using ProjekatASP.Application.CommandsProjekat.UlogaCommands;
 using ProjekatASP.Application.DTO.UlogaDTO;
+using ProjekatASP.Application.ExceptionsProjekat;
 using ProjekatASP.Application.Responsed;
 using ProjekatASP.Application.SearchesProjekat;
 
@@ -25,11 +26,14 @@ namespace ProjekatASP.EfCommands.UlogaCommands
                 var dajNaziv = request.Naziv;
                 uloga = uloga.Where(u => u.Naziv.Contains(dajNaziv) && u.Obrisano == false);
             }
-            /*if (request.Id != 0)
+            if (request.Naziv != null)
             {
-                uloga = Context.Ulogas.Where(u => u.Id == request.Id);
+                var dajNaziv = request.Naziv;
+                uloga = uloga.Where(u => u.Naziv.Contains(dajNaziv) && u.Obrisano == true);
+                {
+                    throw new DataNotFoundException();
+                }
             }
-            */
             if (request.Aktivan == false)
             {
                 uloga = uloga.Where(k => k.Obrisano == request.Aktivan);

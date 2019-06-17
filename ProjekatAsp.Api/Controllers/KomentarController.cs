@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjekatASP.Application.CommandsProjekat.KomentarCommand;
 using ProjekatASP.Application.DTO.KomentarDTO;
 using ProjekatASP.Application.ExceptionsProjekat;
+using ProjekatASP.Application.SearchesProjekat;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,40 +19,57 @@ namespace ProjekatAsp.Api.Controllers
         private readonly IAddKomentarCommand _addKomentar;
         private readonly IDeleteKomentarCommand _deleteKomentar;
         private readonly IEditKomentarCommand _editKomentar;
+        private readonly IGetKomentariCommmand _getKomentari;
+        private readonly IGetKomentarCommand _getKomentar;
 
-        public KomentarController(IAddKomentarCommand addKomentar, IDeleteKomentarCommand deleteKomentar, IEditKomentarCommand editKomentar)
+        public KomentarController(IAddKomentarCommand addKomentar, IDeleteKomentarCommand deleteKomentar, IEditKomentarCommand editKomentar, IGetKomentariCommmand getKomentari, IGetKomentarCommand getKomentar)
         {
             _addKomentar = addKomentar;
             _deleteKomentar = deleteKomentar;
             _editKomentar = editKomentar;
+            _getKomentari = getKomentari;
+            _getKomentar = getKomentar;
         }
+
+
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<KomentarKorisnikVestGetDto>> Get([FromQuery] KomentarSearch search)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(_getKomentari.Execute(search));
+            }
+            catch(DataNotFoundException)
+            {
+                return NotFound("Ne postoji komentar sa tim sadrzajem");
+            }
+            
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetKomentar")]
+        public ActionResult<IEnumerable<KomentarKorisnikVestGetDto>> Get(int id)
         {
-            return "value";
+            try
+            {
+                return Ok(_getKomentar.Execute(id));
+            }
+            catch (DataNotFoundException)
+            {
+                return NotFound("Ne postoji komentar");
+            }
         }
 
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody] KomentarInsertDto value)
+        public ActionResult Post([FromBody] KomentarInsertDto value)
         {
             try
             {
                 _addKomentar.Execute(value);
-                return StatusCode(201);
-            }
-            catch (DataAlreadyExistsException)
-            {
-                return Conflict();
+                return StatusCode(201,"Komentar uspesno dodat");
             }
             catch (Exception)
             {
@@ -61,7 +79,7 @@ namespace ProjekatAsp.Api.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]KomentarGetDto dto)
+        public ActionResult Put(int id, [FromBody]KomentarGetDto dto)
         {
             try
             {
@@ -70,25 +88,21 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound("Komentar");
+                return NotFound("Ne postoji komentar sa tim ID-ijem");
             }
             catch (DataAlreadyExistsException)
             {
                 return Conflict();
             }
-            catch (DataNotAlteredException)
-            {
-                return Conflict();
-            }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Greska na serveru, pokusajte ponovo");
             }
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -97,11 +111,11 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound("Komentar sa tim Id-ijem");
+                return NotFound("Ne postoji komentar sa tim Id-ijem");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500);
+                return StatusCode(500, e.Message);
             }
         }
     }

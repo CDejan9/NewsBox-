@@ -19,9 +19,9 @@ namespace ProjekatASP.EfCommands.KorisnikCommands
         {
             var korisnik = Context.Korisniks.Include(kom => kom.Komentars)
                 .Where(k => k.Id == id).First();
-            if(korisnik.Obrisano || korisnik == null)
+            if(korisnik == null || korisnik.Obrisano)
             {
-                throw new DataNotFoundException("Korisnik koga zelite da obrisete");
+                throw new DataNotFoundException();
             }
 
             korisnik.Obrisano = true;

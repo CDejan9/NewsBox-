@@ -20,11 +20,11 @@ namespace ProjekatASP.EfCommands.VestCommand
         {
             if (Context.Vests.Where(v => v.Obrisano != true).Any(v => v.Naslov == request.Naslov))
             {
-                throw new DataNotFoundException("vest sa tim naslovom");
+                throw new DataAlreadyExistsException();
             }
             if (!Context.Kategorijas.Where(k => k.Obrisano != true).Any(k => k.Id == request.KategorijaId))
             {
-                throw new DataNotFoundException("kategorija kojoj ste dodelili vest");
+                throw new DataNotFoundException();
             }
 
             var vest = new Vest

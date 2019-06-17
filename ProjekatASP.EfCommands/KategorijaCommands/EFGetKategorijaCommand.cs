@@ -24,10 +24,11 @@ namespace ProjekatASP.EfCommands.KategorijaCommands
                 .ThenInclude(s => s.Slikas)
                 .SingleOrDefault(k => k.Id == request);
 
-            if(data.Obrisano == true || data == null)
+            if (data == null || data.Obrisano == true)
             {
-                throw new DataNotFoundException("kategorija");
+                throw new DataNotFoundException();
             }
+
             return new KategorijaGetDto
             {
                 Id = data.Id,

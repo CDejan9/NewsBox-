@@ -22,7 +22,7 @@ namespace ProjekatASP.EfCommands.VestCommand
 
             if(vest == null || vest.Obrisano == true)
             {
-                throw new DataNotFoundException("Vest");
+                throw new DataNotFoundException();
             }
 
             vest.Obrisano = true;

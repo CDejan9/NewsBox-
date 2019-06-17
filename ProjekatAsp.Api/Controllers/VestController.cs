@@ -37,14 +37,23 @@ namespace ProjekatAsp.Api.Controllers
 
         // GET: api/vest
         [HttpGet]
-        public IActionResult Get([FromQuery] VestSearch search)
+        public ActionResult<IEnumerable<VestGetDto>> Get([FromQuery] VestSearch search)
         {
-            return Ok(_getVesti.Execute(search));
+            try
+            {
+                return Ok(_getVesti.Execute(search));
+            }
+            catch(DataNotFoundException)
+            {
+                return NotFound("Vest sa tim Nazivom ne postoji");
+            }
+
+            
         }
 
         // GET api/vest/5
         [HttpGet("{id}", Name = "getVest")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<VestKomentarGetDto>> Get(int id)
         {
             try
             {
@@ -52,13 +61,13 @@ namespace ProjekatAsp.Api.Controllers
             }
             catch (DataNotFoundException)
             {
-                return NotFound();
+                return NotFound("Ne postoji vest");
             }
         }
 
         // POST api/vest
         [HttpPost]
-        public IActionResult Post([FromForm] ApiVestDto apiDto)
+        public ActionResult Post([FromForm] ApiVestDto apiDto)
         {
             try
             {
@@ -86,64 +95,64 @@ namespace ProjekatAsp.Api.Controllers
                     _addVest.Execute(dto);
                     return StatusCode(201, "Uspesno kreirana vest");
                 }
-                catch (DataAlreadyExistsException e)
+                catch (DataAlreadyExistsException)
                 {
-                    return Conflict(e.Message);
+                    return Conflict("Vest sa tim naslovom vec postoji");
                 }
-                catch (DataNotFoundException e)
+                catch (DataNotFoundException)
                 {
-                    return NotFound(e.Message);
+                    return NotFound("Kategorija koju ste dodelili vesti ne postoji");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    return StatusCode(500,e.Message);
+                    return StatusCode(500,"Greska na serveru pri unosu vesti, pokusajte ponovo");
                 }
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Greska na serveru pri unosu slike, pokusajte ponovo");
             }
         }
 
         // PUT api/vest/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]VestGetDto dto)
+        public ActionResult Put(int id, [FromBody]VestGetDto dto)
         {
             try
             {
                 _editVest.Execute(dto);
                 return NoContent();
             }
-            catch (DataNotFoundException)
+            catch (DataNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
             catch (DataAlreadyExistsException)
             {
-                return Conflict();
+                return Conflict("Postoji vest sa tim imenom");
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Greska na serveru pokusajte ponovo");
             }
         }
 
         // DELETE api/vest/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 _deleteVest.Execute(id);
                 return StatusCode(204);
             }
-            catch (DataNotFoundException e)
+            catch (DataNotFoundException)
             {
-                return NotFound(e.Message);
+                return NotFound("Vest sa tim ID-ijem ne postoji");
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Greska na serveru pokusajte ponovo");
             }
         }
     }
