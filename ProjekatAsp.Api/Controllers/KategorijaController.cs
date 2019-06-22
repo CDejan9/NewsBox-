@@ -32,6 +32,21 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET: api/kategorija
+      /*  /// <summary>
+        /// Dohvata kategorije uz mogucnost pretrage po nazivu kategoije
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET
+        ///     {
+        ///        "Id": "",
+        ///        "Naziv": "Naziv kategoije",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Vraca trazene kategorije</response>
+        /// /// <response code="404">Ako kategorija ne postoji</response>*/
         [HttpGet]
         public ActionResult<IEnumerable<KategorijaGetDto>> Get([FromQuery] KategorijaSearch search)
         {
@@ -47,6 +62,11 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET api/kategorija/5
+       /* /// <summary>
+        /// Dohvata kategoriju po id-u.
+        /// </summary>
+        /// <response code="200">Vraca trazenog kategoriju</response>
+        /// <response code="404">Ako ne postoji kategoriju sa tim id-om</response> */
         [HttpGet("{id}", Name = "Get")]
         public ActionResult<IEnumerable<KategorijaGetDto>> Get(int id)
         {
@@ -61,6 +81,22 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // POST api/kategorija
+      /*  /// <summary>
+        /// Dodavanje nove kategorije
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "Naziv": "Neki naziv",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Dodaje novu kategoriju</response>
+        /// <response code="409">Postoiji kategorija sa tim nazivom</response>
+        /// <response code="500">Serverska greska</response>*/
+        
         [HttpPost]
         public ActionResult Post([FromBody] KategorijaInsertDto value)
         {
@@ -81,6 +117,22 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // PUT api/kategorija/5
+      /*  /// <summary>
+        /// Izmena postojeceg kategorije
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///    PUT
+        ///     {
+        ///        "Naziv": "Neki naziv",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Izmena kategorije</response>
+        /// <response code="409">Kategorija sa tim nazivom vec postoji</response>
+        /// <response code="404">Kategorija sa tim ID-ijem ne postoji</response>
+        /// <response code="500">Serverska greska</response> */
         [HttpPut("{id}")]
         [Produces("application/json")]
         public ActionResult Put(int id, [FromBody]KategorijaGetDto dto)
@@ -105,6 +157,13 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // DELETE api/kategorija/5
+      /*  /// <summary>
+        /// Brise kategoriju
+        /// </summary>
+        /// <response code="204">Brise kategoriju</response>
+        /// <response code="409">Postoje vesti za izabranu kategoriju</response>
+        /// <response code="404">igrac sa tim id-om ne postoji</response>
+        /// <response code="500">Serverska greska</response> */
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
