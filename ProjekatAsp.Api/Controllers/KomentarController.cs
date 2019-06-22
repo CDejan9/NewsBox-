@@ -34,6 +34,26 @@ namespace ProjekatAsp.Api.Controllers
 
 
         // GET: api/<controller>
+        /// <summary>
+        /// Dohvata komentar uz mogucnost pretrage po nazivu komentara
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET
+        ///     {
+        ///        "Id": "",
+        ///        "KomentarTekst": "Naziv komentara",
+        ///        "VestId" : "",
+        ///        "VestNaslov" : "Naslov vesti",
+        ///        "KorisnikId" : "",
+        ///        "KorisnikEmail" : "E=mail korisnika"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Vraca trazene komentare</response>
+        /// <response code="404">Ako komentar ne postoji</response>
+
         [HttpGet]
         public ActionResult<IEnumerable<KomentarKorisnikVestGetDto>> Get([FromQuery] KomentarSearch search)
         {
@@ -49,6 +69,11 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET api/<controller>/5
+        /// <summary>
+        /// Dohvata komentar po id-u.
+        /// </summary>
+        /// <response code="200">Vraca trazeni komentar kao i korisnika koji je komentarisao i vest na koji se odnosi</response>
+        /// <response code="404">Ako ne postoji komenatr sa tim id-om</response> 
         [HttpGet("{id}", Name = "GetKomentar")]
         public ActionResult<IEnumerable<KomentarKorisnikVestGetDto>> Get(int id)
         {
@@ -63,6 +88,23 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // POST api/<controller>
+        /// <summary>
+        /// Dodavanje novog komentara
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "Id": "",
+        ///        "KomentarTekst": "Naziv komentara",
+        ///        "VestId" : "",
+        ///        "KorisnikId" : "",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Dodaje novi komentar</response>
+        /// <response code="500">Serverska greska</response>
         [HttpPost]
         public ActionResult Post([FromBody] KomentarInsertDto value)
         {
@@ -78,6 +120,23 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // PUT api/<controller>/5
+        /// <summary>
+        /// Izmena postojeceg komentara
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///    PUT
+        ///     {
+        ///        "Id": "",
+        ///        "KomentarTekst": "Naziv komentara",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Izmena komentara</response>
+        /// <response code="409">Komentar sa tim nazivom vec postoji</response>
+        /// <response code="404">Komentar sa tim ID-ijem ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody]KomentarGetDto dto)
         {
@@ -101,6 +160,12 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // DELETE api/<controller>/5
+        /// <summary>
+        /// Brise komentar
+        /// </summary>
+        /// <response code="204">Brise komentar</response>
+        /// <response code="404">Komentar sa tim id-om ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

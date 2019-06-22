@@ -36,6 +36,25 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET: api/vest
+        /// <summary>
+        /// Dohvata Vest uz mogucnost pretrage po Naslovu vesti
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET
+        ///     {
+        ///        "Id": "ID vesti",
+        ///        "Naslov": "Naslov vesti",
+        ///        "Tekst" : "Teskt veti",
+        ///        "KategorijaId" : "ID kategorije kojoj pripada",
+        ///        "NazivKategorije" : "Naziv kategorije kojoj pripada",
+        ///        "putanjaSlike" : "Putanja slike",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Vraca trazene vesti</response>
+        /// <response code="404">Ako vest ne postoji</response>
         [HttpGet]
         public ActionResult<IEnumerable<VestGetDto>> Get([FromQuery] VestSearch search)
         {
@@ -47,11 +66,14 @@ namespace ProjekatAsp.Api.Controllers
             {
                 return NotFound("Vest sa tim Nazivom ne postoji");
             }
-
-            
         }
 
         // GET api/vest/5
+        /// <summary>
+        /// Dohvata vest po id-u.
+        /// </summary>
+        /// <response code="200">Vraca trazene vesti i njene komentare</response>
+        /// <response code="404">Ako ne postoji vest sa tim id-om</response> 
         [HttpGet("{id}", Name = "getVest")]
         public ActionResult<IEnumerable<VestKomentarGetDto>> Get(int id)
         {
@@ -66,6 +88,25 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // POST api/vest
+        /// <summary>
+        /// Dodavanje nove vesti
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "Naslov": "Naslov vesti",
+        ///        "Tekst" : "Teskt veti",
+        ///        "KategorijaId" : "ID kategorije kojoj pripada",
+        ///        "putanjaSlike" : "Putanja slike",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Dodaje novu vest</response>
+        /// <response code="409">Ako vest sa tim Nazivom vec postoji</response>
+        /// <response code="404">Ako ne postoji kategorija koja je dodeljena vesti</response>
+        /// <response code="500">Serverska greska</response>
         [HttpPost]
         public ActionResult Post([FromForm] ApiVestDto apiDto)
         {
@@ -115,6 +156,26 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // PUT api/vest/5
+        /// <summary>
+        /// Izmena postojece vesti
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///    PUT
+        ///     {
+        ///        "Id": "ID vesti",
+        ///        "Naslov": "Naslov vesti",
+        ///        "Tekst" : "Teskt veti",
+        ///        "KategorijaId" : "ID kategorije kojoj pripada",
+        ///        "NazivKategorije" : "Naziv kategorije kojoj pripada"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Izmena vesti</response>
+        /// <response code="409">Vec postoji vest sa tim nazivom</response>
+        /// <response code="404">Vest sa tim ID-ijem ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody]VestGetDto dto)
         {
@@ -138,6 +199,12 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // DELETE api/vest/5
+        /// <summary>
+        /// Brise vest i sve njene komentare
+        /// </summary>
+        /// <response code="204">Brise vest</response>
+        /// <response code="404">Vest sa tim id-om ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

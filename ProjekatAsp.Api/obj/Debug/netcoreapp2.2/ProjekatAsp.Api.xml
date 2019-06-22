@@ -1,0 +1,384 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProjekatAsp.Api</name>
+    </assembly>
+    <members>
+        <member name="M:ProjekatAsp.Api.Controllers.KategorijaController.Get(ProjekatASP.Application.SearchesProjekat.KategorijaSearch)">
+             <summary>
+             Dohvata kategorije uz mogucnost pretrage po nazivu kategoije
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": "",
+                    "Naziv": "Naziv kategoije",
+                 }
+            
+             </remarks>
+             <response code="200">Vraca trazene kategorije</response>
+             /// <response code="404">Ako kategorija ne postoji</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KategorijaController.Get(System.Int32)">
+            <summary>
+            Dohvata kategoriju po id-u.
+            </summary>
+            <response code="200">Vraca trazenog kategoriju</response>
+            <response code="404">Ako ne postoji kategoriju sa tim id-om</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KategorijaController.Post(ProjekatASP.Application.DTO.KategorijaDTO.KategorijaInsertDto)">
+             <summary>
+             Dodavanje nove kategorije
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Naziv": "Neki naziv",
+                 }
+            
+             </remarks>
+             <response code="201">Dodaje novu kategoriju</response>
+             <response code="409">Postoiji kategorija sa tim nazivom</response>
+             <response code="500">Serverska greska</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KategorijaController.Put(System.Int32,ProjekatASP.Application.DTO.KategorijaDTO.KategorijaGetDto)">
+             <summary>
+             Izmena postojeceg kategorije
+             </summary>
+             <remarks>
+             Sample request:
+            
+                PUT
+                 {
+                    "Naziv": "Neki naziv",
+                 }
+            
+             </remarks>
+             <response code="204">Izmena kategorije</response>
+             <response code="409">Kategorija sa tim nazivom vec postoji</response>
+             <response code="404">Kategorija sa tim ID-ijem ne postoji</response>
+             <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KategorijaController.Delete(System.Int32)">
+            <summary>
+            Brise kategoriju
+            </summary>
+            <response code="204">Brise kategoriju</response>
+            <response code="409">Postoje vesti za izabranu kategoriju</response>
+            <response code="404">Kategorija sa tim id-om ne postoji</response>
+            <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KomentarController.Get(ProjekatASP.Application.SearchesProjekat.KomentarSearch)">
+             <summary>
+             Dohvata komentar uz mogucnost pretrage po nazivu komentara
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": "",
+                    "KomentarTekst": "Naziv komentara",
+                    "VestId" : "",
+                    "VestNaslov" : "Naslov vesti",
+                    "KorisnikId" : "",
+                    "KorisnikEmail" : "E=mail korisnika"
+                 }
+            
+             </remarks>
+             <response code="200">Vraca trazene komentare</response>
+             <response code="404">Ako komentar ne postoji</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KomentarController.Get(System.Int32)">
+            <summary>
+            Dohvata komentar po id-u.
+            </summary>
+            <response code="200">Vraca trazeni komentar kao i korisnika koji je komentarisao i vest na koji se odnosi</response>
+            <response code="404">Ako ne postoji komenatr sa tim id-om</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KomentarController.Post(ProjekatASP.Application.DTO.KomentarDTO.KomentarInsertDto)">
+             <summary>
+             Dodavanje novog komentara
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Id": "",
+                    "KomentarTekst": "Naziv komentara",
+                    "VestId" : "",
+                    "KorisnikId" : "",
+                 }
+            
+             </remarks>
+             <response code="201">Dodaje novi komentar</response>
+             <response code="500">Serverska greska</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KomentarController.Put(System.Int32,ProjekatASP.Application.DTO.KomentarDTO.KomentarGetDto)">
+             <summary>
+             Izmena postojeceg komentara
+             </summary>
+             <remarks>
+             Sample request:
+            
+                PUT
+                 {
+                    "Id": "",
+                    "KomentarTekst": "Naziv komentara",
+                 }
+            
+             </remarks>
+             <response code="204">Izmena komentara</response>
+             <response code="409">Komentar sa tim nazivom vec postoji</response>
+             <response code="404">Komentar sa tim ID-ijem ne postoji</response>
+             <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KomentarController.Delete(System.Int32)">
+            <summary>
+            Brise komentar
+            </summary>
+            <response code="204">Brise komentar</response>
+            <response code="404">Komentar sa tim id-om ne postoji</response>
+            <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KorisnikController.Get(ProjekatASP.Application.SearchesProjekat.KorisnikSearch)">
+             <summary>
+             Dohvata korisnike uz mogucnost pretrage po E-mailu korisnika
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": "ID korisnika",
+                    "Ime": "Ime korisnika",
+                    "Prezime" : "Prezime korisnik",
+                    "Email" : "E=mail korisnika",
+                    "Lozinka" : "null",
+                    "UlogaId" : "ID uloge",
+                    "Obrisan" : "bool",
+                    "NazivUloge": "Naziv uloge korisnika"
+                 }
+            
+             </remarks>
+             <response code="200">Vraca trazene korisnike</response>
+             <response code="404">Ako korisnik ne postoji</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KorisnikController.Get(System.Int32)">
+            <summary>
+            Dohvata korisnka po id-u.
+            </summary>
+            <response code="200">Vraca trazenog korisnika kao i njegove komentare</response>
+            <response code="404">Ako ne postoji korinsik sa tim id-om</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KorisnikController.Post(ProjekatASP.Application.DTO.KorisnikDTO.KorisnikInsertDto)">
+             <summary>
+             Dodavanje novog korisnika
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Id": "",
+                    "Ime": "Ime korisnika",
+                    "Prezime" : "Prezime korisnik",
+                    "Email" : "E=mail korisnika",
+                    "Lozinka" : "null",
+                    "UlogaId" : "ID uloge",
+                 }
+            
+             </remarks>
+             <response code="201">Dodaje novog korisnika</response>
+             <response code="404">Ako ne postoji dodeljena uloga</response>
+             <response code="409">Ako korisnik sa tim E-mailom vec postoji</response>
+             <response code="500">Serverska greska</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KorisnikController.Put(System.Int32,ProjekatASP.Application.DTO.KorisnikDTO.KorisnikGetDto)">
+             <summary>
+             Izmena postojeceg korisnika
+             </summary>
+             <remarks>
+             Sample request:
+            
+                PUT
+                 {
+                     "Id": "ID korisnika",
+                    "Ime": "Ime korisnika",
+                    "Prezime" : "Prezime korisnik",
+                    "Email" : "E=mail korisnika",
+                    "Lozinka" : "null",
+                    "UlogaId" : "ID uloge",
+                    "Obrisan" : "bool",
+                    "NazivUloge": "Naziv uloge korisnika"
+                 }
+            
+             </remarks>
+             <response code="204">Izmena korisnika</response>
+             <response code="409">Korisnik sa tim E-mailom vec postoji</response>
+             <response code="404">Korisnik sa tim ID-ijem ne postoji</response>
+             <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.KorisnikController.Delete(System.Int32)">
+            <summary>
+            Brise korinsika i sve njegove komentare
+            </summary>
+            <response code="204">Brise korinsika</response>
+            <response code="404">Korinsik sa tim id-om ne postoji</response>
+            <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.UlogaController.Get(ProjekatASP.Application.SearchesProjekat.UlogaSearch)">
+             <summary>
+             Dohvata uloge uz mogucnost pretrage po E-Naizvu uloge
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": "",
+                    "Naizv": "Naziv uloge",
+                 }
+            
+             </remarks>
+             <response code="200">Vraca trazene uloge</response>
+             <response code="404">Ako uloga ne postoji</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.UlogaController.Get(System.Int32)">
+            <summary>
+            Dohvata uloge po id-u.
+            </summary>
+            <response code="200">Vraca trazenu ulogu</response>
+            <response code="404">Ako ne postoji uloga sa tim id-om</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.UlogaController.Post(ProjekatASP.Application.DTO.UlogaDTO.UlogaInsertDto)">
+             <summary>
+             Dodavanje nove uloge
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Naziv": "Naziv nove uloge"
+                 }
+            
+             </remarks>
+             <response code="201">Dodaje novu ulogu</response>
+             <response code="409">Ako uloga sa tim Nazivom vec postoji</response>
+             <response code="500">Serverska greska</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.UlogaController.Put(System.Int32,ProjekatASP.Application.DTO.UlogaDTO.UlogaGetDto)">
+             <summary>
+             Izmena postojece uloge
+             </summary>
+             <remarks>
+             Sample request:
+            
+                PUT
+                 {
+                     "Id": "ID uloge",
+                    "Naziv": "Novi naziv uloge",
+                 }
+            
+             </remarks>
+             <response code="204">Izmena uloge</response>
+             <response code="409">Vec postoji Uloga sa tim nazivom</response>
+             <response code="404">Uloga sa tim ID-ijem ne postoji</response>
+             <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.UlogaController.Delete(System.Int32)">
+            <summary>
+            Brise ulogu
+            </summary>
+            <response code="204">Brise ulogu</response>
+            <response code="404">Ulogu sa tim id-om ne postoji</response>
+            <response code="409">Postoje korisnci sa tom ulogom</response>
+            <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.VestController.Get(ProjekatASP.Application.SearchesProjekat.VestSearch)">
+             <summary>
+             Dohvata Vest uz mogucnost pretrage po Naslovu vesti
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET
+                 {
+                    "Id": "ID vesti",
+                    "Naslov": "Naslov vesti",
+                    "Tekst" : "Teskt veti",
+                    "KategorijaId" : "ID kategorije kojoj pripada",
+                    "NazivKategorije" : "Naziv kategorije kojoj pripada",
+                    "putanjaSlike" : "Putanja slike",
+                 }
+            
+             </remarks>
+             <response code="200">Vraca trazene vesti</response>
+             <response code="404">Ako vest ne postoji</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.VestController.Get(System.Int32)">
+            <summary>
+            Dohvata vest po id-u.
+            </summary>
+            <response code="200">Vraca trazene vesti i njene komentare</response>
+            <response code="404">Ako ne postoji vest sa tim id-om</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.VestController.Post(ProjekatAsp.Api.Models.ApiVestDto)">
+             <summary>
+             Dodavanje nove vesti
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "Naslov": "Naslov vesti",
+                    "Tekst" : "Teskt veti",
+                    "KategorijaId" : "ID kategorije kojoj pripada",
+                    "putanjaSlike" : "Putanja slike",
+                 }
+            
+             </remarks>
+             <response code="201">Dodaje novu vest</response>
+             <response code="409">Ako vest sa tim Nazivom vec postoji</response>
+             <response code="404">Ako ne postoji kategorija koja je dodeljena vesti</response>
+             <response code="500">Serverska greska</response>
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.VestController.Put(System.Int32,ProjekatASP.Application.DTO.VestDTO.VestGetDto)">
+             <summary>
+             Izmena postojece vesti
+             </summary>
+             <remarks>
+             Sample request:
+            
+                PUT
+                 {
+                    "Id": "ID vesti",
+                    "Naslov": "Naslov vesti",
+                    "Tekst" : "Teskt veti",
+                    "KategorijaId" : "ID kategorije kojoj pripada",
+                    "NazivKategorije" : "Naziv kategorije kojoj pripada"
+                 }
+            
+             </remarks>
+             <response code="204">Izmena vesti</response>
+             <response code="409">Vec postoji vest sa tim nazivom</response>
+             <response code="404">Vest sa tim ID-ijem ne postoji</response>
+             <response code="500">Serverska greska</response> 
+        </member>
+        <member name="M:ProjekatAsp.Api.Controllers.VestController.Delete(System.Int32)">
+            <summary>
+            Brise vest i sve njene komentare
+            </summary>
+            <response code="204">Brise vest</response>
+            <response code="404">Vest sa tim id-om ne postoji</response>
+            <response code="500">Serverska greska</response> 
+        </member>
+    </members>
+</doc>

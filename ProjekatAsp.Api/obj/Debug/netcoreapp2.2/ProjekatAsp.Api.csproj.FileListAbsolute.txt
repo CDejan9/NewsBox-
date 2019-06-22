@@ -21,3 +21,5 @@ C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\bin\Debug\netcoreap
 C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\bin\Debug\netcoreapp2.2\ProjekatASP.Application.pdb
 C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\bin\Debug\netcoreapp2.2\ProjekatASP.EfCommands.pdb
 C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\obj\Debug\netcoreapp2.2\ProjekatAsp.Api.csproj.CopyComplete
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\bin\Debug\netcoreapp2.2\ProjekatAsp.Api.xml
+C:\Users\danica\source\repos\ProjekatAsp.Api\ProjekatAsp.Api\obj\Debug\netcoreapp2.2\ProjekatAsp.Api.xml

@@ -34,6 +34,27 @@ namespace ProjekatAsp.Api.Controllers
 
 
         // GET: api/korisnik
+        /// <summary>
+        /// Dohvata korisnike uz mogucnost pretrage po E-mailu korisnika
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET
+        ///     {
+        ///        "Id": "ID korisnika",
+        ///        "Ime": "Ime korisnika",
+        ///        "Prezime" : "Prezime korisnik",
+        ///        "Email" : "E=mail korisnika",
+        ///        "Lozinka" : "null",
+        ///        "UlogaId" : "ID uloge",
+        ///        "Obrisan" : "bool",
+        ///        "NazivUloge": "Naziv uloge korisnika"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Vraca trazene korisnike</response>
+        /// <response code="404">Ako korisnik ne postoji</response>
         [HttpGet]
         public ActionResult<IEnumerable<KorisnikGetDto>> Get([FromQuery] KorisnikSearch search)
         {
@@ -48,6 +69,11 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET api/korisnik/5
+        /// <summary>
+        /// Dohvata korisnka po id-u.
+        /// </summary>
+        /// <response code="200">Vraca trazenog korisnika kao i njegove komentare</response>
+        /// <response code="404">Ako ne postoji korinsik sa tim id-om</response> 
         [HttpGet("{id}", Name = "GetKorisnik")]
         public ActionResult<IEnumerable<KorisnikGetKomentarDto>> Get(int id)
         {
@@ -62,6 +88,27 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // POST api/korisnik
+        /// <summary>
+        /// Dodavanje novog korisnika
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "Id": "",
+        ///        "Ime": "Ime korisnika",
+        ///        "Prezime" : "Prezime korisnik",
+        ///        "Email" : "E=mail korisnika",
+        ///        "Lozinka" : "null",
+        ///        "UlogaId" : "ID uloge",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Dodaje novog korisnika</response>
+        /// <response code="404">Ako ne postoji dodeljena uloga</response>
+        /// <response code="409">Ako korisnik sa tim E-mailom vec postoji</response>
+        /// <response code="500">Serverska greska</response>
         [HttpPost]
         public ActionResult Post([FromBody]KorisnikInsertDto value)
         {
@@ -85,6 +132,29 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // PUT api/korisnik/5
+        /// <summary>
+        /// Izmena postojeceg korisnika
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///    PUT
+        ///     {
+        ///         "Id": "ID korisnika",
+        ///        "Ime": "Ime korisnika",
+        ///        "Prezime" : "Prezime korisnik",
+        ///        "Email" : "E=mail korisnika",
+        ///        "Lozinka" : "null",
+        ///        "UlogaId" : "ID uloge",
+        ///        "Obrisan" : "bool",
+        ///        "NazivUloge": "Naziv uloge korisnika"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Izmena korisnika</response>
+        /// <response code="409">Korisnik sa tim E-mailom vec postoji</response>
+        /// <response code="404">Korisnik sa tim ID-ijem ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody]KorisnikGetDto dto)
         {
@@ -112,6 +182,12 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // DELETE api/korisnik/5
+        /// <summary>
+        /// Brise korinsika i sve njegove komentare
+        /// </summary>
+        /// <response code="204">Brise korinsika</response>
+        /// <response code="404">Korinsik sa tim id-om ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

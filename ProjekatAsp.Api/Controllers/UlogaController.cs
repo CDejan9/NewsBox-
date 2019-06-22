@@ -36,6 +36,21 @@ namespace ProjekatAsp.Api.Controllers
 
 
         // GET: api/uloga
+        /// <summary>
+        /// Dohvata uloge uz mogucnost pretrage po E-Naizvu uloge
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET
+        ///     {
+        ///        "Id": "",
+        ///        "Naizv": "Naziv uloge",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Vraca trazene uloge</response>
+        /// <response code="404">Ako uloga ne postoji</response>
         [HttpGet]
         public ActionResult<IEnumerable<UlogaGetDto>> Get([FromQuery] UlogaSearch search)
         {
@@ -51,6 +66,11 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // GET api/uloga/5
+        /// <summary>
+        /// Dohvata uloge po id-u.
+        /// </summary>
+        /// <response code="200">Vraca trazenu ulogu</response>
+        /// <response code="404">Ako ne postoji uloga sa tim id-om</response> 
         [HttpGet("{id}", Name = "GetUloga")]
         public ActionResult<IEnumerable<UlogaGetDto>> Get(int id)
         {
@@ -65,6 +85,21 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // POST api/uloga
+        /// <summary>
+        /// Dodavanje nove uloge
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "Naziv": "Naziv nove uloge"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Dodaje novu ulogu</response>
+        /// <response code="409">Ako uloga sa tim Nazivom vec postoji</response>
+        /// <response code="500">Serverska greska</response>
         [HttpPost]
         public ActionResult Post([FromBody] UlogaInsertDto value)
         {
@@ -85,6 +120,23 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // PUT api/uloga/5
+        /// <summary>
+        /// Izmena postojece uloge
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///    PUT
+        ///     {
+        ///         "Id": "ID uloge",
+        ///        "Naziv": "Novi naziv uloge",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Izmena uloge</response>
+        /// <response code="409">Vec postoji Uloga sa tim nazivom</response>
+        /// <response code="404">Uloga sa tim ID-ijem ne postoji</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] UlogaGetDto dto)
         {
@@ -108,6 +160,13 @@ namespace ProjekatAsp.Api.Controllers
         }
 
         // DELETE api/uloga/5
+        /// <summary>
+        /// Brise ulogu
+        /// </summary>
+        /// <response code="204">Brise ulogu</response>
+        /// <response code="404">Ulogu sa tim id-om ne postoji</response>
+        /// <response code="409">Postoje korisnci sa tom ulogom</response>
+        /// <response code="500">Serverska greska</response> 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
